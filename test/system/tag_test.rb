@@ -52,4 +52,19 @@ class TagTest < ApplicationSystemTestCase
 
   end
 
+  test 'deleting a newly added user tag' do
+    visit '/profile/jeff'
+
+    # run the javascript function
+    page.evaluate_script("addTag('test_user_tag', '/profile/tags/create/2')")
+
+    find('#tags-section').click
+
+    within('div#tags.profile-tags') do
+      assert_selector('a', text: 'test_user_tag')
+      find('p:last-of-type a', class: 'tag-delete').click
+      assert_no_selector('a', text: 'test_user_tag')
+    end
+  end
+
 end

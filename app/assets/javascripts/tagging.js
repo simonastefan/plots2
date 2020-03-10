@@ -93,9 +93,10 @@ function addNewTagsSuccess(response, deletion_path, el = "#tagform"){
 }
 
 function displayNewTag(tag_name, tag_id, deletion_path) {
+  tag_del = (deletion_path.split("/")[1] == "profile") ? "?name=" + tag_name : "/" + tag_id;
   $('.tags-list:first').append("<p id='tag_"+tag_id+"' class='badge badge-primary m-0'> \
     <a class='tag-name' style='color:white;' href='/tag/"+tag_name+"'>"+tag_name+"</a> <a class='tag-delete' \
-    data-remote='true' href='"+deletion_path+"/"+tag_id+"' data-tag-id='"+tag_id+"' \
+    data-remote='true' href='"+deletion_path+tag_del+"' data-tag-id='"+tag_id+"' \
     data-method='delete'><i class='fa fa-times-circle fa-white blue pl-1' aria-hidden='true' ></i></a></p> ")
   setupTagDelete($('#tag_' + tag_id + ' .tag-delete'));
 }
